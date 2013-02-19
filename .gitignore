@@ -1,0 +1,4 @@
+.sass-cache
+assets/css/*
+application/logs/*
+application/cache/*
