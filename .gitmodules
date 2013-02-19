@@ -10,3 +10,6 @@
 [submodule "modules/cache"]
 	path = modules/cache
 	url = http://github.com/kohana/cache.git
+[submodule "modules/uuid"]
+	path = modules/uuid
+	url = https://github.com/shadowhand/uuid.git
