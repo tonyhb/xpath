@@ -123,7 +123,7 @@ class Model_Install extends Model
      */
     public function create_user($data)
     {
-        $data['password'] = Model::factory('user')->hash_password($data['password']);
+        $data['password'] = Model::factory('auth')->hash_password($data['password']);
 
         DB::Query(Database::INSERT, "INSERT INTO `xp_users` (`username`, `email`, `password`) VALUES (:username, :email, :password)")
             ->bind(":username", $data['username'])

@@ -105,6 +105,13 @@ Kohana::$log->attach(new Log_File(APPPATH.'logs'));
 Kohana::$config->attach(new Config_File);
 
 /**
+ * Attempt setting the cookie salt using the app's generated UUID
+ */
+try
+{
+    Cookie::$salt = Kohana::$config->load("app.cookie_salt");
+} catch (Exception $e) {}
+/**
  * Enable modules. Modules are referenced by a relative or absolute path.
  */
 Kohana::modules(array(

@@ -6,43 +6,26 @@ class Model_User extends Model
     /**
      * Creates a new admin user based on an array of data passed
      *
+     * @todo Complete method
      */
     public function create(Array $data)
     {
-        $data['password'] = $this->hash_password($data['password']);
-
+        $data['password'] = Model::factory('auth')->hash_password($data['password']);
     }
 
-    /**
-     * Hashes a user's password using the blowcrypt algorithm.
-     *
-     * @param string  plaintext password to hash
-     * @param string  optional salt to hash the password with
-     */
-    public function hash_password($input, $salt = '')
+    public function load_by_username($username)
     {
-        if ($salt == '')
-        {
-            // Get the app salt for blowcrypt encryption
-            $salt = Kohana::$config->load('app.salt');
+        $result = DB::Query(Database::SELECT, "SELECT * FROM `xp_users` WHERE `username` = :username")
+            ->bind(":username", $username)
+            ->execute();
 
-            // Remove the dash characters from our V4 UUID and shorten to 22 
-            // characters for blowcrypt encruption
-            $salt = substr(str_replace('-', '', $salt), 0, 22);
+        if ($result->count() == 0)
+            return FALSE;
 
-            // Pseudo-randomise our app salt UUID on a per-user basis
-            $salt = sha1($salt.uniqid());
-        }
+        // Returns an array containing an array of values
+        $result = $result->as_array();
 
-        // Add blowcrypt cost and watermarks
-        $salt = "$2a$10$".$salt."$";
-        $hash = crypt($input, $salt);
-
-        // By default, the hash has the blowcrypt warermarks at the start of the 
-        // string and the salt separated from the hash via a dot. This removes 
-        // them.
-        $hash = substr($hash, 7);
-        return preg_replace('#\.#', '', $hash, 1);
+        return $result[0];
     }
 
 }
