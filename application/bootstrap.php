@@ -131,13 +131,26 @@ Kohana::modules(array(
  * Set the routes. Each route must have a minimum of a name, a URI and a set of
  * defaults for the URI.
  */
-Route::set('admin', '(admin(/<action>(/<id>)))')
+Route::set('login', 'admin/login')
 	->defaults(array(
 		'controller' => 'admin',
 		'action'     => 'login',
 	));
 
-Route::set('default', '(<controller>(/<action>(/<id>)))')
+
+Route::set('admin_page_show', 'admin/page/show<uri>', array('uri' => '.*'))
+	->defaults(array(
+		'controller' => 'page',
+		'action'     => 'show',
+	));
+
+Route::set('admin', 'admin(/<controller>(/<action>(/<id>)))')
+	->defaults(array(
+		'controller' => 'page',
+		'action'     => 'index',
+	));
+
+Route::set('default', '(<page>)', array('page' => '.*'))
 	->defaults(array(
 		'controller' => 'front',
 		'action'     => 'request',

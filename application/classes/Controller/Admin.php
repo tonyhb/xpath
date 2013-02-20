@@ -7,10 +7,10 @@ class Controller_Admin extends Controller
 
     public function before()
     {
-        // Attempt loggin in - we may have shown the login form for any URL if 
-        // the user wasn't authenticated.
         if ($data = $this->request->post("login"))
         {
+            // Attempt loggin in - we may have shown the login form for any URL if 
+            // the user wasn't authenticated.
             App_Auth::login($data);
         }
 
@@ -29,7 +29,7 @@ class Controller_Admin extends Controller
     {
         if (App::$user_id != FALSE)
         {
-            HTTP::Redirect("/admin/dashboard");
+            HTTP::Redirect("/");
         }
 
         $response = View::Factory("_template")
