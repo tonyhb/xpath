@@ -10,7 +10,6 @@
     <?php endif; ?>
 
     <?= $body ?>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="/_admin/assets/js/application.js"></script>
+    <script data-main="/_admin/assets/js/config" src="/_admin/assets/js/libs/requirejs.min.js"></script>
 </body>
 </html>

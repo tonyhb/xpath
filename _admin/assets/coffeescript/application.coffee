@@ -1,69 +1,70 @@
 # POC: Need to transfer to Backbone in the future.
-window.App = App = () ->
+App = () ->
 
-App.prototype.xpath = (element, iframe) ->
+# Initialises the app by binding to context menu events and setting the page
+# iframe height
+#
+# *Opts* ->
+#   + *options* - An object of options, including the document context for the
+#                 app. This will be where context menus etc. are added to.
+App.prototype.init = (options) ->
 
-  # Gets the total number of previous siblings that are of the same tag type. This
-  # is used to give an index to an array of nodes for a particular element (eg
-  # /div[5]/ is the 5th div in the XPath query.)
-  #
-  # An optional ID or class can be passed into opts to ensure we get a key for 
-  # siblings with matching classes or ids
-  #
-  getElementCount = (element, opts) ->
-    previous = element.previousSibling
-    i = 1
-    while previous
-      # This may be an empty series of spaces between elements etc... we only want
-      # HTML nodes.
-      if previous.nodeType != 1
-        previous = previous.previousSibling
-        continue
-      # If we're looking for sibling tags that need to have the same class or ID
-      # skip if they don't match
-      if (opts && opts.class && previous.getAttribute('class') != element.getAttribute('class')) || (opts && opts.id && previous.getAttribute('id') != element.getAttribute('id'))
-        previous = previous.previousSibling
-        continue
-      # If the tag name (div/a etc) matches our target element, so increase the
-      # counter
-      i++ if (previous.localName == element.localName)
-      previous = previous.previousSibling
-    return i
-
-  # We may be accessing an iframe's document
-  if iframe
-    all_nodes = frames[iframe].document.getElementsByTagName('*')
+  if options
+    @.context = options.context
+    $(@.context).height(($(window).height() - 60) + 'px')
   else
-    all_nodes = document.getElementsByTagName('*')
+    @.context = document
 
-  # Loop through all nodes and work out our xpath
-  segments = []
-  while element && element.nodeType == 1
-    if element.hasAttribute('id')
-      # This element has an ID, so we're going to use this in the XPath
-      # There are no unique IDs at the moment
-      uniqueIdCount = 0
-      # Loop through all nodes to find if the ID of our element is unique - we
-      # need this to know how we're going to represent the ID in the XPath
-      for node in all_nodes
-        uniqueIdCount++ if node.hasAttribute('id') and node.id == element.id
-        break if uniqueIdCount > 1 # More than 1 id exists... we've done our job
-      # We can represent this using the id("$id") format if there's only 1,
-      # otherwise we have to use the format '$tagname[@id="$id"]'
-      if uniqueIdCount == 1
-        segments.unshift 'id("' + element.getAttribute('id') + '")'
-        return segments.join("/") # With a unique ID we can break and return
-      else
-        segments.unshift element.localName.toLowerCase() + '[@id="' + element.getAttribute('id') + '"][' + getElementCount(element, { id : element.getAttte('id') }) + ']'
-    else
-      # There's no class or ID, so we need to build a list of preceding elements
-      # by element type
-      segments.unshift element.localName.toLowerCase() + '[' + getElementCount(element) + ']'
-    # Go to the parent and loop over
-    element = element.parentNode
+  @.contextMenu = new ContextMenu(@.context)
 
-  if segments.length
-    return '/' + segments.join('/')
-  else
-    return null
+  # Add event listeners for right-clicking (context-menus)
+  document.body.addEventListener('contextmenu', _.bind(@.mouseDown, @))
+  frames['page_iframe'].document.body.addEventListener('contextmenu', _.bind(@.mouseDown, @))
 
+
+# Here for testing: may be moved to contextMenu if the contextmenu event is
+# cross-browser. This defers functionality to the contextMenu method if the
+# event was a right click
+App.prototype.mouseDown = (event) ->
+  if event.which == 3 or event.button == 2
+    @.contextMenu.process(event.target)
+    event.preventDefault()
+    return false
+
+
+# A context menu object for creating context menus when right clicking on an
+# object.
+# 
+# *Opts* ->
+#   + *options* - The document context for the menu
+#
+ContextMenu = (context) ->
+  @.context = context
+  @.container = document.createElement('div')
+  $(@.context).contents().find("body").append(@.container)
+
+  return this
+
+ContextMenu.prototype.elementContextMenus = {
+  'H1|H2|H3|H4|H5|H6|P|A|SPAN': 'textBlock'
+}
+
+# Iterates over each ContextMenu.elements key, matching the current element's
+# tagName and calling the specified method.
+ContextMenu.prototype.process = (element) ->
+  for elements, methodName of this.elementContextMenus
+    elements = elements.split('|')
+
+    if elements.indexOf(element.tagName) >= 0
+      @[methodName].call(@, element)
+      break
+
+ContextMenu.prototype.textBlock = (element) ->
+
+# Create a new app method, bound to the main window's App global
+window.App = new App()
+
+# Initialise the app once we've got our iframe content loaded. We need to do
+# this in the context of our App object so the App's context methods have 'this'
+# in the right context.
+document.getElementById('page_iframe').onload = _.bind(window.App.init, window.App, { context: $('#page_iframe') })

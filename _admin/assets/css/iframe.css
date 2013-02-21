@@ -1,0 +1,45 @@
+/* line 5, _admin/assets/sass/iframe.sass */
+#app_contextMenu {
+  position: absolute;
+  z-index: 999999;
+  background: white;
+  padding: 5px 0;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), 0 2px 5px rgba(0, 0, 0, 0.05);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 14, _admin/assets/sass/iframe.sass */
+#app_contextMenu ul {
+  list-style: none;
+  list-style-type: none;
+  margin: 0;
+}
+/* line 19, _admin/assets/sass/iframe.sass */
+#app_contextMenu ul li {
+  display: block;
+  padding: 1px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 20px;
+  width: 150px;
+  height: 24px;
+  cursor: pointer;
+}
+/* line 29, _admin/assets/sass/iframe.sass */
+#app_contextMenu ul li:hover {
+  background: #174bc1;
+  color: white;
+  border-bottom: 1px solid #2b4ee7;
+  border-top: 1px solid #607eeb;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #6a87f3), color-stop(100%, #365cf1));
+  background-image: -webkit-linear-gradient(#6a87f3, #365cf1);
+  background-image: -moz-linear-gradient(#6a87f3, #365cf1);
+  background-image: -o-linear-gradient(#6a87f3, #365cf1);
+  background-image: linear-gradient(#6a87f3, #365cf1);
+}
