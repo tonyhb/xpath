@@ -1,11 +1,13 @@
-require(["jquery", "lodash", "backbone", "app/xpath", "app/contextmenu"], ($, _, Backbone, Xpath, ContextMenu) ->
 
-  window.app = app = {}
+
+  window.app = app = {
+    edits: {}
+  }
 
   app.init = () ->
-    app.ContextMenu = new ContextMenu({
-      context: $('#page_iframe').contents().find('body')
-    })
+    app.context = $('#page_iframe').contents().find('body')
+    app.TextEditor = new TextEditor()
+    app.ContextMenu = new ContextMenu()
     app
 
 )

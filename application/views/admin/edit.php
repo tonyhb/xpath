@@ -6,7 +6,7 @@
   // therefore we need to defer loading until our app has loaded.
   _load = function() {
     if ( ! window.app) {
-        window.setTimeout(_load, 500);
+        window.setTimeout(_load, 100);
     } else {
         window.app.init();
         document.getElementById('app_loading').parentNode.removeChild(document.getElementById('app_loading'));

@@ -5,7 +5,7 @@ define(["jquery", "lodash", "backbone", "app/contextmenu/text"], ($, _, Backbone
     id: "app_contextMenu",
 
     contextMenus : {
-      'H1|H2|H3|H4|H5|H6|P|A|SPAN': new TextMenu()
+      'DIV|NAV|H1|H2|H3|H4|H5|H6|P|A|SPAN': new TextMenu()
     },
 
     menu : null,
@@ -14,13 +14,13 @@ define(["jquery", "lodash", "backbone", "app/contextmenu/text"], ($, _, Backbone
     position: {},
 
     initialize: ->
-      @.options.context
+      app.context
         .on('contextmenu', _.bind(@.click, @))
         .on('click', _.bind(@.hideMenu, @))
         .append("<link rel='stylesheet' href='/_admin/assets/css/iframe.css' />")
 
     render: ->
-      $(@.options.context).append(@.el)
+      $(app.context).append(@.el)
       @.$el.css({ position: 'absolute', top: @.position.y, left: @.position.x })
 
     # Show the context menu

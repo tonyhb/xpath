@@ -7,15 +7,15 @@
       tagName: "div",
       id: "app_contextMenu",
       contextMenus: {
-        'H1|H2|H3|H4|H5|H6|P|A|SPAN': new TextMenu()
+        'DIV|NAV|H1|H2|H3|H4|H5|H6|P|A|SPAN': new TextMenu()
       },
       menu: null,
       position: {},
       initialize: function() {
-        return this.options.context.on('contextmenu', _.bind(this.click, this)).on('click', _.bind(this.hideMenu, this)).append("<link rel='stylesheet' href='/_admin/assets/css/iframe.css' />");
+        return app.context.on('contextmenu', _.bind(this.click, this)).on('click', _.bind(this.hideMenu, this)).append("<link rel='stylesheet' href='/_admin/assets/css/iframe.css' />");
       },
       render: function() {
-        $(this.options.context).append(this.el);
+        $(app.context).append(this.el);
         return this.$el.css({
           position: 'absolute',
           top: this.position.y,

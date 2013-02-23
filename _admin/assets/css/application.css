@@ -74,14 +74,14 @@ html {
   line-height: 1.5em;
 }
 
-/* line 3, _admin/assets/sass/application.sass */
+/* line 3, ../sass/application.sass */
 html, body {
   font-family: "Helvetica Neue", Helvetica, Arial;
   height: 100%;
   overflow: hidden;
 }
 
-/* line 8, _admin/assets/sass/application.sass */
+/* line 8, ../sass/application.sass */
 label.link {
   cursor: pointer;
   text-decoration: underline;
@@ -90,7 +90,7 @@ label.link {
 
 /* ---------------------------------------------------------------------------- */
 /* Forms */
-/* line 16, _admin/assets/sass/application.sass */
+/* line 16, ../sass/application.sass */
 input[type=text], input[type=password] {
   font-size: 1em;
   line-height: 1.5em;
@@ -99,45 +99,65 @@ input[type=text], input[type=password] {
 
 /* ---------------------------------------------------------------------------- */
 /* Login */
-/* line 24, _admin/assets/sass/application.sass */
+/* line 24, ../sass/application.sass */
 #login {
   display: block;
   width: 500px;
   margin: 100px auto;
 }
-/* line 29, _admin/assets/sass/application.sass */
+/* line 29, ../sass/application.sass */
 #login h1 {
   text-align: center;
 }
-/* line 32, _admin/assets/sass/application.sass */
+/* line 32, ../sass/application.sass */
 #login input, #login label {
   display: block;
 }
 
 /* ---------------------------------------------------------------------------- */
 /* Admin */
-/* line 38, _admin/assets/sass/application.sass */
+/* line 38, ../sass/application.sass */
 #menu {
   height: 60px;
   background: black;
+  position: relative;
+  z-index: 10;
 }
 
-/* line 42, _admin/assets/sass/application.sass */
+/* line 44, ../sass/application.sass */
 #page_html {
   display: none;
 }
 
-/* line 45, _admin/assets/sass/application.sass */
+/* line 47, ../sass/application.sass */
 #page_iframe {
   width: 100%;
   height: 100%;
 }
 
-/* line 49, _admin/assets/sass/application.sass */
+/* line 51, ../sass/application.sass */
 #app_loading {
   width: 100%;
   height: 100%;
   background: black;
   position: absolute;
   top: 60px;
+}
+
+/* line 58, ../sass/application.sass */
+#app_wysihtml5_editor, .wysihtml5-sandbox {
+  position: absolute;
+  box-sizing: border-box;
+  overflow: visible;
+  border: 0;
+}
+
+/* line 64, ../sass/application.sass */
+#app_wysihtml5_editor {
+  z-index: 1;
+}
+
+/* line 67, ../sass/application.sass */
+.wysihtml5-sandbox {
+  z-index: 2;
 }

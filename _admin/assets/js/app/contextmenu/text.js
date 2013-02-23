@@ -23,8 +23,7 @@
         return this;
       },
       click: function(event) {
-        this.target.setAttribute('contenteditable', true);
-        return this.target.focus();
+        return app.TextEditor.create(this.target);
       }
     });
   });

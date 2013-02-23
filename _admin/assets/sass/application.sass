@@ -38,6 +38,8 @@ input[type=text], input[type=password]
 #menu
   height: 60px
   background: #000
+  position: relative
+  z-index: 10
 
 #page_html
   display: none
@@ -52,3 +54,15 @@ input[type=text], input[type=password]
   background: #000
   position: absolute
   top: 60px
+
+#app_wysihtml5_editor, .wysihtml5-sandbox
+  position: absolute
+  box-sizing: border-box
+  overflow: visible
+  border: 0
+
+#app_wysihtml5_editor
+  z-index: 1
+
+.wysihtml5-sandbox
+  z-index: 2

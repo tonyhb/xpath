@@ -3,10 +3,12 @@ define(["jquery", "lodash", "backbone"], ($, _, Backbone) ->
   TextMenu = Backbone.View.extend({
     tagName: "ul",
 
+    # We bind events to each LI and listen for context menu clicks
     events: {
       "click li" : "click"
-    },
+    }
 
+    # The target element we have selected to perform actions on
     target: undefined,
 
     initialize: ->
@@ -27,8 +29,7 @@ define(["jquery", "lodash", "backbone"], ($, _, Backbone) ->
     # editable
     #
     click: (event) ->
-      @.target.setAttribute('contenteditable', true)
-      @.target.focus()
+      app.TextEditor.create(@.target)
 
 
   })

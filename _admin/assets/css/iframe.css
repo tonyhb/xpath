@@ -1,4 +1,4 @@
-/* line 5, _admin/assets/sass/iframe.sass */
+/* line 5, ../sass/iframe.sass */
 #app_contextMenu {
   position: absolute;
   z-index: 999999;
@@ -14,24 +14,24 @@
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 14, _admin/assets/sass/iframe.sass */
+/* line 14, ../sass/iframe.sass */
 #app_contextMenu ul {
   list-style: none;
   list-style-type: none;
   margin: 0;
 }
-/* line 19, _admin/assets/sass/iframe.sass */
+/* line 19, ../sass/iframe.sass */
 #app_contextMenu ul li {
   display: block;
   padding: 1px 10px;
   font-size: 12px;
   font-weight: bold;
-  line-height: 20px;
+  line-height: 22px;
   width: 150px;
   height: 24px;
   cursor: pointer;
 }
-/* line 29, _admin/assets/sass/iframe.sass */
+/* line 29, ../sass/iframe.sass */
 #app_contextMenu ul li:hover {
   background: #174bc1;
   color: white;
